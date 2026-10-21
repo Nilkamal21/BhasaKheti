@@ -1,0 +1,145 @@
+{
+  "model_name": "plant_disease_classifier.pth",
+  "verification_status": "verified",
+  "verification_source": "Training code inspection from train_classification.py and directory layout of ImageFolder in data/processed/train",
+  "verification_date": "2026-10-12",
+  "num_classes": 15,
+  "supported_crops": ["bell_pepper", "potato", "tomato"],
+  "classes": [
+    {
+      "index": 0,
+      "raw_class_name": "Pepper__bell___Bacterial_spot",
+      "crop": "bell_pepper",
+      "disease": "Bacterial spot",
+      "is_healthy": false,
+      "display_name_en": "Bell Pepper - Bacterial Spot",
+      "display_name_bn": "বেল পেপার (ক্যাপসিকাম) - ব্যাকটেরিয়াল স্পট"
+    },
+    {
+      "index": 1,
+      "raw_class_name": "Pepper__bell___healthy",
+      "crop": "bell_pepper",
+      "disease": "None (Healthy)",
+      "is_healthy": true,
+      "display_name_en": "Bell Pepper - Healthy",
+      "display_name_bn": "বেল পেপার (ক্যাপসিকাম) - সুস্থ ও নীরোগ"
+    },
+    {
+      "index": 2,
+      "raw_class_name": "Potato___Early_blight",
+      "crop": "potato",
+      "disease": "Early blight",
+      "is_healthy": false,
+      "display_name_en": "Potato - Early Blight",
+      "display_name_bn": "আলু - আর্লি ব্লাইট (আগেভাগে ধ্বসা রোগ)"
+    },
+    {
+      "index": 3,
+      "raw_class_name": "Potato___Late_blight",
+      "crop": "potato",
+      "disease": "Late blight",
+      "is_healthy": false,
+      "display_name_en": "Potato - Late Blight",
+      "display_name_bn": "আলু - লেট ব্লাইট (নাবী ধ্বসা রোগ)"
+    },
+    {
+      "index": 4,
+      "raw_class_name": "Potato___healthy",
+      "crop": "potato",
+      "disease": "None (Healthy)",
+      "is_healthy": true,
+      "display_name_en": "Potato - Healthy",
+      "display_name_bn": "আলু - সুস্থ ও নীরোগ"
+    },
+    {
+      "index": 5,
+      "raw_class_name": "Tomato_Bacterial_spot",
+      "crop": "tomato",
+      "disease": "Bacterial spot",
+      "is_healthy": false,
+      "display_name_en": "Tomato - Bacterial Spot",
+      "display_name_bn": "টমেটো - ব্যাকটেরিয়াল স্পট (জীবাণুঘটিত দাগ)"
+    },
+    {
+      "index": 6,
+      "raw_class_name": "Tomato_Early_blight",
+      "crop": "tomato",
+      "disease": "Early blight",
+      "is_healthy": false,
+      "display_name_en": "Tomato - Early Blight",
+      "display_name_bn": "টমেটো - আর্লি ব্লাইট (আগেভাগে ধ্বসা রোগ)"
+    },
+    {
+      "index": 7,
+      "raw_class_name": "Tomato_Late_blight",
+      "crop": "tomato",
+      "disease": "Late blight",
+      "is_healthy": false,
+      "display_name_en": "Tomato - Late Blight",
+      "display_name_bn": "টমেটো - লেট ব্লাইট (নাবী ধ্বসা রোগ)"
+    },
+    {
+      "index": 8,
+      "raw_class_name": "Tomato_Leaf_Mold",
+      "crop": "tomato",
+      "disease": "Leaf mold",
+      "is_healthy": false,
+      "display_name_en": "Tomato - Leaf Mold",
+      "display_name_bn": "টমেটো - পাতার ছাঁচ রোগ (লিফ মোল্ড)"
+    },
+    {
+      "index": 9,
+      "raw_class_name": "Tomato_Septoria_leaf_spot",
+      "crop": "tomato",
+      "disease": "Septoria leaf spot",
+      "is_healthy": false,
+      "display_name_en": "Tomato - Septoria Leaf Spot",
+      "display_name_bn": "টমেটো - সেপটোরিয়া পাতার দাগ"
+    },
+    {
+      "index": 10,
+      "raw_class_name": "Tomato_Spider_mites_Two_spotted_spider_mite",
+      "crop": "tomato",
+      "disease": "Two-spotted spider mite",
+      "is_healthy": false,
+      "display_name_en": "Tomato - Spider Mites",
+      "display_name_bn": "টমেটো - লাল মাকড়সার আক্রমণ"
+    },
+    {
+      "index": 11,
+      "raw_class_name": "Tomato__Target_Spot",
+      "crop": "tomato",
+      "disease": "Target spot",
+      "is_healthy": false,
+      "display_name_en": "Tomato - Target Spot",
+      "display_name_bn": "টমেটো - টার্গেট স্পট রোগ"
+    },
+    {
+      "index": 12,
+      "raw_class_name": "Tomato__Tomato_YellowLeaf__Curl_Virus",
+      "crop": "tomato",
+      "disease": "Yellow leaf curl virus",
+      "is_healthy": false,
+      "display_name_en": "Tomato - Yellow Leaf Curl Virus",
+      "display_name_bn": "টমেটো - পাতা কোঁকড়ানো ভাইরাস (হলুদ পাতার কার্ল)"
+    },
+    {
+      "index": 13,
+      "raw_class_name": "Tomato__Tomato_mosaic_virus",
+      "crop": "tomato",
+      "disease": "Tomato mosaic virus",
+      "is_healthy": false,
+      "display_name_en": "Tomato - Mosaic Virus",
+      "display_name_bn": "টমেটো - মোজাইক ভাইরাস"
+    },
+    {
+      "index": 14,
+      "raw_class_name": "Tomato_healthy",
+      "crop": "tomato",
+      "disease": "None (Healthy)",
+      "is_healthy": true,
+      "display_name_en": "Tomato - Healthy",
+      "display_name_bn": "টমেটো - সুস্থ ও নীরোগ"
+    }
+  ]
+}

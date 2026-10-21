@@ -1,0 +1,125 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Sky Gradient -->
+    <linearGradient id="skyGrad" x1="960" y1="0" x2="960" y2="700" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f0f9f2" />
+      <stop offset="40%" stop-color="#fcfefd" />
+      <stop offset="70%" stop-color="#fffbee" />
+      <stop offset="100%" stop-color="#f4faf4" />
+    </linearGradient>
+
+    <!-- Sun Glow -->
+    <radialGradient id="sunGlow" cx="1740" cy="360" r="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffecb3" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#fff8e1" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Field Layer 1 (Distant) -->
+    <linearGradient id="distFields" x1="0" y1="400" x2="1920" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#e2f3e5" />
+      <stop offset="50%" stop-color="#eaf7ec" />
+      <stop offset="100%" stop-color="#f3f9e9" />
+    </linearGradient>
+
+    <!-- Field Layer 2 (Midground) -->
+    <linearGradient id="midFields" x1="0" y1="550" x2="1920" y2="850" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#cdecd3" />
+      <stop offset="60%" stop-color="#ddf3d7" />
+      <stop offset="100%" stop-color="#d6efdb" />
+    </linearGradient>
+
+    <!-- Field Layer 3 (Foreground) -->
+    <linearGradient id="foreFields" x1="0" y1="750" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a6deb2" />
+      <stop offset="50%" stop-color="#bcebc3" />
+      <stop offset="100%" stop-color="#a4dab1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sky Canvas -->
+  <rect width="1920" height="1080" fill="url(#skyGrad)" />
+
+  <!-- Morning Sun -->
+  <circle cx="1740" cy="360" r="140" fill="url(#sunGlow)" />
+  <circle cx="1740" cy="360" r="48" fill="#ffe082" fill-opacity="0.7" />
+
+  <!-- Distant Birds -->
+  <path d="M1680 370 Q1688 362 1696 370 Q1704 362 1712 370" stroke="#78909c" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.4" />
+  <path d="M1720 340 Q1726 334 1732 340 Q1738 334 1744 340" stroke="#78909c" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4" />
+  <path d="M1650 395 Q1655 390 1660 395 Q1665 390 1670 395" stroke="#78909c" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.35" />
+
+  <!-- Distant Soft Hills & Green Belts -->
+  <path d="M0 520 Q300 480 700 510 T1500 500 Q1750 480 1920 510 L1920 1080 L0 1080 Z" fill="url(#distFields)" opacity="0.8" />
+  <path d="M0 640 Q450 610 950 650 T1920 620 L1920 1080 L0 1080 Z" fill="url(#midFields)" opacity="0.75" />
+  <path d="M0 800 Q500 760 1100 810 T1920 780 L1920 1080 L0 1080 Z" fill="url(#foreFields)" opacity="0.65" />
+
+  <!-- Right Side: Village Huts and Distant Trees -->
+  <g opacity="0.85">
+    <!-- Trees on Right -->
+    <circle cx="1660" cy="510" r="42" fill="#529b63" opacity="0.6" />
+    <circle cx="1700" cy="495" r="50" fill="#438c55" opacity="0.65" />
+    <circle cx="1750" cy="505" r="46" fill="#367b48" opacity="0.7" />
+    <circle cx="1840" cy="520" r="55" fill="#438c55" opacity="0.6" />
+    <circle cx="1890" cy="505" r="60" fill="#367b48" opacity="0.6" />
+
+    <!-- Palm Trees -->
+    <path d="M1855 530 Q1852 460 1845 420" stroke="#6d4c41" stroke-width="4.5" stroke-linecap="round" />
+    <path d="M1845 420 Q1820 405 1800 425" stroke="#2e7d32" stroke-width="3" stroke-linecap="round" fill="none" />
+    <path d="M1845 420 Q1830 390 1835 375" stroke="#388e3c" stroke-width="3" stroke-linecap="round" fill="none" />
+    <path d="M1845 420 Q1860 395 1880 405" stroke="#2e7d32" stroke-width="3" stroke-linecap="round" fill="none" />
+    <path d="M1845 420 Q1870 415 1885 435" stroke="#388e3c" stroke-width="3" stroke-linecap="round" fill="none" />
+
+    <!-- Village Thatched Cottage 1 -->
+    <polygon points="1770,545 1820,515 1870,545" fill="#c47a46" />
+    <polygon points="1815,515 1885,520 1870,545 1820,545" fill="#a86536" />
+    <rect x="1780" y="545" width="80" height="40" fill="#fdfcf8" />
+    <rect x="1810" y="555" width="20" height="30" fill="#6d4c41" rx="2" />
+    <rect x="1788" y="555" width="14" height="14" fill="#8d6e63" rx="2" />
+    <rect x="1838" y="555" width="14" height="14" fill="#8d6e63" rx="2" />
+
+    <!-- Small Thatched Hut 2 -->
+    <polygon points="1710,555 1745,530 1780,555" fill="#d9824c" />
+    <rect x="1718" y="555" width="55" height="30" fill="#f5f2e9" />
+    <rect x="1738" y="563" width="15" height="22" fill="#5d4037" rx="1.5" />
+  </g>
+
+  <!-- Left Side: Golden Paddy Stalks and Rice Sheaves Framing the Screen -->
+  <g opacity="0.9">
+    <!-- Big Curved Paddy Stalk 1 -->
+    <path d="M-40 850 Q80 650 140 450 Q180 320 120 220" stroke="#388e3c" stroke-width="6" stroke-linecap="round" fill="none" />
+    <path d="M-20 860 Q120 620 190 380 Q220 280 180 190" stroke="#f59e0b" stroke-width="5" stroke-linecap="round" fill="none" />
+
+    <!-- Drooping Ripe Grains on Stalk 1 -->
+    <g fill="#f59e0b" stroke="#d97706" stroke-width="1.5">
+      <ellipse cx="180" cy="190" rx="9" ry="16" transform="rotate(40 180 190)" fill="#fbbf24" />
+      <ellipse cx="165" cy="225" rx="8.5" ry="15" transform="rotate(45 165 225)" />
+      <ellipse cx="195" cy="230" rx="8" ry="15" transform="rotate(25 195 230)" fill="#fbbf24" />
+      <ellipse cx="155" cy="265" rx="8" ry="15" transform="rotate(50 155 265)" />
+      <ellipse cx="190" cy="275" rx="8" ry="14" transform="rotate(30 190 275)" fill="#fcd34d" />
+      <ellipse cx="148" cy="305" rx="8" ry="14" transform="rotate(55 148 305)" />
+      <ellipse cx="185" cy="320" rx="7.5" ry="14" transform="rotate(35 185 320)" fill="#fbbf24" />
+      <ellipse cx="140" cy="350" rx="7.5" ry="13" transform="rotate(60 140 350)" />
+      <ellipse cx="178" cy="365" rx="7.5" ry="13" transform="rotate(40 178 365)" fill="#f59e0b" />
+      <ellipse cx="132" cy="395" rx="7" ry="13" transform="rotate(65 132 395)" />
+      <ellipse cx="168" cy="410" rx="7" ry="13" transform="rotate(45 168 410)" fill="#fcd34d" />
+    </g>
+
+    <!-- Second Golden Paddy Stalk -->
+    <path d="M-60 900 Q60 720 100 540 Q130 420 80 340" stroke="#2e7d32" stroke-width="5" stroke-linecap="round" fill="none" />
+    <g fill="#f59e0b" stroke="#d97706" stroke-width="1.2">
+      <ellipse cx="80" cy="340" rx="8" ry="14" transform="rotate(35 80 340)" fill="#fbbf24" />
+      <ellipse cx="70" cy="370" rx="7.5" ry="13" transform="rotate(45 70 370)" fill="#fcd34d" />
+      <ellipse cx="98" cy="375" rx="7" ry="13" transform="rotate(25 98 375)" fill="#fbbf24" />
+      <ellipse cx="65" cy="405" rx="7" ry="13" transform="rotate(50 65 405)" />
+      <ellipse cx="92" cy="415" rx="7" ry="12" transform="rotate(30 92 415)" fill="#fcd34d" />
+      <ellipse cx="60" cy="445" rx="6.5" ry="12" transform="rotate(55 60 445)" />
+      <ellipse cx="85" cy="455" rx="6.5" ry="12" transform="rotate(35 85 455)" fill="#fbbf24" />
+    </g>
+
+    <!-- Lush Long Green Rice Leaves -->
+    <path d="M-40 920 Q40 680 20 480 Q0 360 -40 300" stroke="#43a047" stroke-width="8" stroke-linecap="round" fill="none" />
+    <path d="M-30 950 Q100 800 130 650 Q150 540 110 440" stroke="#2e7d32" stroke-width="7" stroke-linecap="round" fill="none" />
+    <path d="M-20 980 Q160 880 210 740 Q240 640 210 520" stroke="#388e3c" stroke-width="7" stroke-linecap="round" fill="none" />
+  </g>
+</svg>

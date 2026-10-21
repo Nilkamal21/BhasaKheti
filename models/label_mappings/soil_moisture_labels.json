@@ -1,0 +1,21 @@
+{
+  "model_name": "soil_moisture_classifier.tflite",
+  "verification_status": "verified",
+  "verification_source": "Training code train_soil_moisture.py using flow_from_directory on alphabetical class folders: 'dry' and 'wet' and confirmed in soil_analysis_app.py",
+  "verification_date": "2026-10-12",
+  "num_classes": 2,
+  "classes": [
+    {
+      "index": 0,
+      "raw_class_name": "dry",
+      "display_name_en": "Dry Soil Condition",
+      "display_name_bn": "শুকনো মাটির অবস্থা"
+    },
+    {
+      "index": 1,
+      "raw_class_name": "wet",
+      "display_name_en": "Moist / Wet Soil Condition",
+      "display_name_bn": "আর্দ্র / ভেজা মাটির অবস্থা"
+    }
+  ]
+}

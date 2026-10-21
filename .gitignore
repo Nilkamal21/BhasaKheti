@@ -1,0 +1,40 @@
+# Dependencies and environment
+node_modules/
+.env
+.env.local
+.env.*.local
+*.env
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+
+# IDE and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Specifically requested: do not push the PDF
+*.pdf
+prototype.pdf

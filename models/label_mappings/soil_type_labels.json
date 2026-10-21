@@ -1,0 +1,51 @@
+{
+  "model_name": "soil_type_classifier.tflite",
+  "verification_status": "verified",
+  "verification_source": "Training code train_soil_type.py using flow_from_directory on 7 alphabetical dataset folders: Alluvial_Soil, Arid_Soil, Black_Soil, Laterite_Soil, Mountain_Soil, Red_Soil, Yellow_Soil and verified in soil_analysis_app.py",
+  "verification_date": "2026-10-12",
+  "num_classes": 7,
+  "classes": [
+    {
+      "index": 0,
+      "raw_class_name": "Alluvial_Soil",
+      "display_name_en": "Alluvial Soil",
+      "display_name_bn": "পলি মাটি (অলুভিয়াল সয়েল)"
+    },
+    {
+      "index": 1,
+      "raw_class_name": "Arid_Soil",
+      "display_name_en": "Arid / Desert Soil",
+      "display_name_bn": "শুষ্ক / মরু অঞ্চলের মাটি"
+    },
+    {
+      "index": 2,
+      "raw_class_name": "Black_Soil",
+      "display_name_en": "Black Soil (Regur)",
+      "display_name_bn": "কালো মাটি (রেগুর / কৃষ্ণ মৃত্তিকা)"
+    },
+    {
+      "index": 3,
+      "raw_class_name": "Laterite_Soil",
+      "display_name_en": "Laterite Soil",
+      "display_name_bn": "ল্যাটারাইট / কাঁকুরে মাটি"
+    },
+    {
+      "index": 4,
+      "raw_class_name": "Mountain_Soil",
+      "display_name_en": "Mountain / Forest Soil",
+      "display_name_bn": "পাহাড়ি / পার্বত্য মাটি"
+    },
+    {
+      "index": 5,
+      "raw_class_name": "Red_Soil",
+      "display_name_en": "Red Soil",
+      "display_name_bn": "লাল মাটি (লাল মৃত্তিকা)"
+    },
+    {
+      "index": 6,
+      "raw_class_name": "Yellow_Soil",
+      "display_name_en": "Yellow Soil",
+      "display_name_bn": "হলুদ মাটি"
+    }
+  ]
+}

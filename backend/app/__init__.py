@@ -1,0 +1,1 @@
+"""BhasaKheti backend application package."""
