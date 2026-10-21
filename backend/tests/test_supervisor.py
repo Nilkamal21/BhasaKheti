@@ -11,6 +11,8 @@ Tests:
 8. API endpoint /api/v1/supervisor/chat validation.
 """
 
+import io
+from PIL import Image
 import pytest
 from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
@@ -199,3 +201,23 @@ def test_supervisor_api_endpoint_validation_error():
         data={"query": ""}
     )
     assert response.status_code == 400
+
+
+@pytest.mark.anyio
+async def test_supervisor_image_with_empty_or_generic_query():
+    """Verify that uploading an image with empty query doesn't fail with NameError and invokes visual inspection."""
+    img = Image.new("RGB", (128, 128), color="green")
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    img_bytes = buf.getvalue()
+
+    res = await supervisor_service.plan_and_execute(
+        query="",
+        image_bytes=img_bytes,
+        image_type="auto"
+    )
+
+    assert "predict_plant_disease" in res.tools_invoked
+    assert res.intent == "visual_inspection"
+    assert res.answer_bn is not None
+

@@ -177,7 +177,7 @@ class SupervisorOrchestrator:
                 safety_warnings.append(SOIL_MODEL_BOUNDARY_DISCLAIMER_BN)
                 safety_warnings.append(MOISTURE_MODEL_BOUNDARY_DISCLAIMER_BN)
 
-            elif intent_info["is_disease"] or image_type == "leaf" or primary_intent in ["crop_health", "visual_inspection"]:
+            elif intent_info["is_disease"] or image_type == "leaf" or intent in ["crop_health", "visual_inspection"]:
                 # Crop Health Agent tool: Disease model on leaf
                 if detected_crop == "rice":
                     # Programmatic safety boundary: Do NOT run 15-class model on rice when diagnosing diseases
