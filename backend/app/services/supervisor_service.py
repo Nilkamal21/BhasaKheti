@@ -79,16 +79,67 @@ class SupervisorOrchestrator:
 
         return None
 
+    @staticmethod
+    def normalize_bengali_text(text: str) -> str:
+        """Normalizes Unicode and fixes separated vowels or dotted circle sequences."""
+        import unicodedata
+        import re
+        normalized = unicodedata.normalize("NFC", text or "")
+        # Strip dotted circle (U+25CC) and join detached vowels with preceding consonant
+        cleaned = re.sub(r'[\u25cc\s]+([\u09be-\u09cd])', r'\1', normalized)
+        return cleaned.lower()
+
+    @staticmethod
+    def detect_visual_category(image_bytes: bytes) -> str:
+        """
+        Determines whether the provided image is a crop leaf or bare farm soil
+        using deterministic color-histogram domain rules.
+        """
+        if not image_bytes:
+            return "unknown"
+        try:
+            import io
+            from PIL import Image
+            import numpy as np
+
+            img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+            img.thumbnail((120, 120))
+            arr = np.array(img, dtype=float)
+            r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
+
+            # Green dominance indicates plant leaf/foliage
+            green_dom = (g > r + 15) & (g > b)
+            green_ratio = float(np.mean(green_dom))
+
+            # Earthy / brown dominance indicates soil
+            soil_dom = (r >= g - 5) & (g >= b) & (r > b + 10)
+            soil_ratio = float(np.mean(soil_dom))
+
+            if soil_ratio > 0.35 and green_ratio < 0.20:
+                return "soil"
+            elif green_ratio > 0.20:
+                return "leaf"
+            elif soil_ratio > green_ratio:
+                return "soil"
+            else:
+                return "leaf"
+        except Exception:
+            return "auto"
+
     def analyze_intent(self, query: str, has_image: bool) -> Dict[str, Any]:
         """Classifies intent using deterministic keywords with fallback."""
-        lower_q = query.lower()
+        lower_q = self.normalize_bengali_text(query)
 
         is_market = any(w in lower_q for w in ["বাজারদর", "বাজার দর", "দাম", "দর", "রেট", "মূল্য", "মন্ডি", "মার্কেট", "price", "rate", "mandi"])
         is_scheme = any(w in lower_q for w in ["প্রকল্প", "সরকারি", "ভর্তুকি", "অনুদান", "কৃষক বন্ধু", "বিমা", "লোন", "ঋণ", "সাহায্য", "scheme", "subsidy", "pm-kisan", "kcc"])
         is_irrigation = any(w in lower_q for w in ["জল", "সেচ", "পানি", "ভিজানো", "water", "watering", "irrigate", "irrigation", "সেচ দেব", "বৃষ্টি", "খরা", "rain", "weather", "আবহাওয়া"])
         is_fertilizer = any(w in lower_q for w in ["সার", "ইউরিয়া", "পটাশ", "ডিএপি", "পুষ্টি", "fertilizer", "nutrient", "খাবার"])
         is_disease = any(w in lower_q for w in ["দাগ", "রোগ", "পচা", "ধসা", "পোকা", "হলুদ", "কুঁকড়ে", "blight", "curl", "spot", "পোকা"])
-        is_soil = any(w in lower_q for w in ["মাটি", "পলি", "ল্যাটেরাইট", "বেলে", "soil"])
+        is_soil = any(w in lower_q for w in [
+            "মাটি", "মাটিতে", "মাটির", "পলি", "ল্যাটেরাইট", "বেলে", "দোআঁশ", "এঁটেল", "soil",
+            "জমি", "জমিতে", "জমির", "খেত", "ক্ষেত", "কী চাষ", "কী ফসল", "কী লাগাব", "চাষ করব",
+            "বপন", "রোপণ", "মরশুম", "ঋতু", "ফসল লাগা"
+        ])
 
         if is_market:
             primary_intent = "market"
@@ -158,6 +209,16 @@ class SupervisorOrchestrator:
 
         # Step 3: Tool Selection & Execution
         # Case A: Visual Image Provided (Camera input)
+        resolved_image_type = (image_type or "auto").lower()
+        if has_image and resolved_image_type == "auto":
+            vis_cat = self.detect_visual_category(image_bytes)
+            if vis_cat == "soil" or intent_info["is_soil"]:
+                resolved_image_type = "soil"
+            elif vis_cat == "leaf" or intent_info["is_disease"]:
+                resolved_image_type = "leaf"
+            else:
+                resolved_image_type = "soil" if intent_info["is_soil"] else "leaf"
+
         if has_image:
             # If farmer is asking about irrigation, analyze soil moisture without triggering leaf disease warnings
             if intent_info["is_irrigation"]:
@@ -165,7 +226,7 @@ class SupervisorOrchestrator:
                 collected_results.append(moist_res)
                 tools_invoked.append("predict_soil_moisture")
 
-            elif image_type == "soil" or intent_info["is_soil"] or "মাটি" in cleaned_query:
+            elif resolved_image_type == "soil" or intent_info["is_soil"] or "মাটি" in cleaned_query:
                 # Soil Agent tools
                 soil_res = tool_registry.predict_soil_type(image_bytes)
                 collected_results.append(soil_res)
@@ -177,7 +238,7 @@ class SupervisorOrchestrator:
                 safety_warnings.append(SOIL_MODEL_BOUNDARY_DISCLAIMER_BN)
                 safety_warnings.append(MOISTURE_MODEL_BOUNDARY_DISCLAIMER_BN)
 
-            elif intent_info["is_disease"] or image_type == "leaf" or intent in ["crop_health", "visual_inspection"]:
+            elif resolved_image_type == "leaf" or intent_info["is_disease"] or intent in ["crop_health", "visual_inspection"]:
                 # Crop Health Agent tool: Disease model on leaf
                 if detected_crop == "rice":
                     # Programmatic safety boundary: Do NOT run 15-class model on rice when diagnosing diseases
@@ -215,7 +276,7 @@ class SupervisorOrchestrator:
                 safety_warnings.append(scheme_res.disclaimer_bn)
 
         # Case E: Agricultural Knowledge Agent (Fallback / Grounding)
-        if intent_info["is_disease"] or intent_info["is_fertilizer"] or (not collected_results and cleaned_query):
+        if intent_info["is_disease"] or intent_info["is_fertilizer"] or intent_info["is_soil"] or (not collected_results and cleaned_query):
             kb_res = tool_registry.retrieve_agricultural_knowledge(query=cleaned_query, crop=detected_crop)
             collected_results.append(kb_res)
             tools_invoked.append("retrieve_agricultural_knowledge")
@@ -532,6 +593,15 @@ class SupervisorOrchestrator:
                     for d in docs[:2]:
                         d_lines.append(f"• {d['title_bn']}: {d['content_bn']}")
                     sections.append("\n".join(d_lines))
+
+        # Check if query asks for seasonal crop recommendation on soil
+        has_soil_tool = any(r.tool_name in ["predict_soil_type", "predict_soil_moisture"] for r in tools_results)
+        if has_soil_tool and any(w in query.lower() for w in ["কী চাষ", "কী ফসল", "কী লাগাব", "চাষ করব", "চাষ", "ফসল", "লাগানো"]):
+            sections.append(
+                "**রবি মরশুমি ফসল বপন নির্দেশিকা (অক্টোবর-নভেম্বর):**\n"
+                "• বর্তমান রবি মরশুমে উপযুক্ত আর্দ্রতাযুক্ত দোআঁশ বা এঁটেল মাটিতে **আলু (কুফরি জ্যোতি/পোখরাজ)**, **সরিষা**, **বাঁধাকপি**, **ফুলকপি** এবং **রবি ডাল (মসুর/মুগ)** চাষের জন্য শ্রেষ্ঠ সময়।\n"
+                "• জমি তৈরির সময় বিঘাপ্রতি পর্যাপ্ত জৈব কম্পোস্ট বা পচা গোবর সার প্রয়োগ করুন এবং মাটির জো বুঝে বীজ বপন করুন।"
+            )
 
         if follow_up:
             sections.append(f"**প্রয়োজনীয় তথ্য:** {follow_up}")

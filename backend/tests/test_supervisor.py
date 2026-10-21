@@ -221,3 +221,25 @@ async def test_supervisor_image_with_empty_or_generic_query():
     assert res.intent == "visual_inspection"
     assert res.answer_bn is not None
 
+
+@pytest.mark.anyio
+async def test_supervisor_soil_image_auto_detection():
+    """Verify that uploading an earthy brown soil image with auto image_type invokes soil tools and not leaf disease."""
+    # Earthy brown soil image (R > G > B, low green)
+    img = Image.new("RGB", (128, 128), color=(140, 110, 80))
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    soil_bytes = buf.getvalue()
+
+    res = await supervisor_service.plan_and_execute(
+        query="বছরের এই সময়ে এই মাটিতে কী চাষ করা ভালো হবে?",
+        image_bytes=soil_bytes,
+        image_type="auto"
+    )
+
+    assert "predict_soil_type" in res.tools_invoked
+    assert "predict_soil_moisture" in res.tools_invoked
+    assert "predict_plant_disease" not in res.tools_invoked
+    assert "রবি মরশুমি ফসল বপন নির্দেশিকা" in res.answer_bn
+
+

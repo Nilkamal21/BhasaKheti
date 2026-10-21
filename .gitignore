@@ -28,6 +28,7 @@ htmlcov/
 coverage/
 
 # IDE and OS files
+*.db
 .vscode/
 .idea/
 *.swp
